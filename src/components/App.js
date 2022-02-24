@@ -1,53 +1,15 @@
-import mainLogo from "./images/header-logo.svg";
+import mainLogo from "../images/header-logo.svg";
+import Header from "./Header";
+import Main from "./Main";
+import Footer from "./Footer";
 
 function App() {
   return (
     <>
       <div className="page">
-        <header className="header">
-          <img
-            src={mainLogo}
-            alt="логотип проекта Место России."
-            className="header__logo"
-          />
-        </header>
-        <main className="content">
-          <section className="profile">
-            <div className="avatar">
-              <img
-                src="<%=require('./images/profile-images.jpg')%>"
-                alt="фотография профиля."
-                className="avatar__image"
-              />
-              <div className="avatar__over">
-                <img
-                  src="<%=require('./images/avatar__edit.png')%>"
-                  alt="редактирование аватар"
-                  className="avatar__edit"/>
-              </div>
-            </div>
-            <div className="profile__info">
-              <h1 className="profile__title profile__title_popup_name">Жак-Ив Кусто
-              </h1>
-              <button
-                type="button"
-                aria-label="Кнопка редактирования профиля"
-                className="button button_item_edit"
-              ></button>
-              <p className="profile__subtitle profile__subtitle_popup_job">Исследователь океана</p>
-            </div>
-            <button
-              type="button"
-              aria-label="Кнопка добавления контента"
-              className="button button_item_add"
-            ></button>
-          </section>
-          <section className="places">
-          </section>
-        </main>
-        <footer className="footer">
-          <p className="footer__copyright">&copy; 2021 Mesto Russia</p>
-        </footer>
+        <Header />
+        <Main />
+        <Footer />
       </div>
 
       <div className="popup popup_element_profile">
@@ -132,21 +94,6 @@ function App() {
       </div>
     </div>
 
-      <div className="popup popup_type_image popup_element_image">
-      <div className="popup__overlay popup__overlay_select_image"></div>
-      <div className="popup__content popup__content_type_image">
-        <button
-          type="button"
-          aria-label="Кнопка закрытия редактора формы"
-          className="popup__close popup__close_place_img"
-        ></button>
-        <figure className="figure">
-          <img src="#" alt="картинка." className="figure__image"/>
-          <figcaption className="figure__title"></figcaption>
-        </figure>
-      </div>
-    </div>
-
       <div className="popup popup_element_avatar">
       <div className="popup__overlay popup__overlay_select_avatar"></div>
       <div className="popup__content">
@@ -194,6 +141,21 @@ function App() {
         ></button>
       </div>
     </div>
+
+      <div className="popup popup_type_image popup_element_image">
+        <div className="popup__overlay popup__overlay_select_image"></div>
+        <div className="popup__content popup__content_type_image">
+          <button
+            type="button"
+            aria-label="Кнопка закрытия редактора формы"
+            className="popup__close popup__close_place_img"
+          ></button>
+          <figure className="figure">
+            <img src="#" alt="картинка." className="figure__image"/>
+            <figcaption className="figure__title"></figcaption>
+          </figure>
+        </div>
+      </div>
 
       <template className="place-template">
     <div className="place">
