@@ -1,19 +1,4 @@
-function Main() {
-  const handleEditAvatarClick = () => {
-    const popupAvatarOpen = document.querySelector('.popup_element_avatar');
-    popupAvatarOpen.classList.add('popup_open')
-  };
-
-  const handleEditProfileClick = () => {
-    const popupProfileOpen = document.querySelector('.popup_element_profile');
-    popupProfileOpen.classList.add('popup_open')
-  };
-
-  const handleAddPlaceClick = () => {
-    const popupAddCardOpen = document.querySelector('.popup_element_place');
-    popupAddCardOpen.classList.add('popup_open');
-  };
-
+function Main(props) {
   return (
     <main className="content">
       <section className="profile">
@@ -28,7 +13,7 @@ function Main() {
               src="<%=require('./images/avatar__edit.png')%>"
               alt="редактирование аватар"
               className="avatar__edit"
-              onClick={handleEditAvatarClick}
+              onClick={() => props.onEditAvatar()}
             />
           </div>
         </div>
@@ -39,7 +24,7 @@ function Main() {
             type="button"
             aria-label="Кнопка редактирования профиля"
             className="button button_item_edit"
-            onClick={handleEditProfileClick}
+            onClick={() => props.onEditProfile()}
           ></button>
           <p className="profile__subtitle profile__subtitle_popup_job">Исследователь океана</p>
         </div>
@@ -47,7 +32,7 @@ function Main() {
           type="button"
           aria-label="Кнопка добавления контента"
           className="button button_item_add"
-          onClick={handleAddPlaceClick}
+          onClick={() => props.onAddPlace()}
         ></button>
       </section>
       <section className="places">
