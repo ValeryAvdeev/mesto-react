@@ -1,4 +1,15 @@
+import {useEffect, useState} from "react";
+import api from "./Api";
+
 function Main(props) {
+  const [userName, setUserName] = useState('');
+  const [userDescription, setUserDescription] = useState('');
+  const [userAvatar, setUserAvatar] = useState([]);
+
+  useEffect(() => {
+    console.log(api.getUser(userName))
+  })
+
   return (
     <main className="content">
       <section className="profile">
@@ -13,18 +24,20 @@ function Main(props) {
               src="<%=require('./images/avatar__edit.png')%>"
               alt="редактирование аватар"
               className="avatar__edit"
-              onClick={() => props.onEditAvatar()}
+              onClick={props.onEditAvatar}
             />
           </div>
         </div>
         <div className="profile__info">
-          <h1 className="profile__title profile__title_popup_name">Жак-Ив Кусто
+          <h1 className="profile__title profile__title_popup_name">
+            {/*{setUserName}*/}
+            Жак-Ив Кусто
           </h1>
           <button
             type="button"
             aria-label="Кнопка редактирования профиля"
             className="button button_item_edit"
-            onClick={() => props.onEditProfile()}
+            onClick={props.onEditProfile}
           ></button>
           <p className="profile__subtitle profile__subtitle_popup_job">Исследователь океана</p>
         </div>
@@ -32,7 +45,7 @@ function Main(props) {
           type="button"
           aria-label="Кнопка добавления контента"
           className="button button_item_add"
-          onClick={() => props.onAddPlace()}
+          onClick={props.onAddPlace}
         ></button>
       </section>
       <section className="places">
