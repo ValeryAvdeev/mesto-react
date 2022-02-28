@@ -10,7 +10,12 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =useState(false);
 
-  // const [isClosePopup, setIsClosePopup] = useState(true)
+  const [selectedCard, setSelectedCard] = useState(null)
+
+  const handleCardClick = (card) => {
+    console.log(card)
+    setSelectedCard(card)
+  }
 
   const handleEditAvatarClick = () => setIsEditAvatarPopupOpen(true);
 
@@ -22,6 +27,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setSelectedCard(false);
   }
 
   return (
@@ -32,6 +38,7 @@ function App() {
           onEditProfile={handleEditProfile}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
+          onCardClick={handleCardClick}
         />
         <Footer />
       </div>
@@ -128,7 +135,9 @@ function App() {
         </button>
       </PopupWithForm>
 
-      <PopupWithForm name='delete-card' title='Вы уверены?'>
+      <PopupWithForm
+        name='delete-card'
+        title='Вы уверены?'>
         <button
           type="button"
           className="popup__button  popup__delete-card"
@@ -137,21 +146,10 @@ function App() {
         </button>
       </PopupWithForm>
 
-      <ImagePopup/>
-
-      <template className="place-template">
-    <div className="place">
-      <button className="button button_item_delete button_delete" type="button"></button>
-      <img src="#" alt="картинка." className="place__image"/>
-      <div className="place__content">
-        <h2 className="place__title"></h2>
-        <div className="place__like">
-          <button type="button" className="button button_item_like"></button>
-          <span className="place__like-amount"></span>
-        </div>
-      </div>
-    </div>
-  </template>
+      <ImagePopup
+        card={selectedCard}
+        onClose={closeAllPopups}
+      />
     </>
   );
 }
