@@ -1,3 +1,4 @@
+import React from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -12,10 +13,7 @@ function App() {
 
   const [selectedCard, setSelectedCard] = useState(null)
 
-  const handleCardClick = (card) => {
-    console.log(card)
-    setSelectedCard(card)
-  }
+  const handleCardClick = (card) => setSelectedCard(card);
 
   const handleEditAvatarClick = () => setIsEditAvatarPopupOpen(true);
 

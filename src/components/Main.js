@@ -1,6 +1,7 @@
+import React from "react";
 import {useEffect, useState} from "react";
 import editAvatar from '../images/avatar__edit.png'
-import Api from "./Api";
+import Api from "../utils/Api";
 import Card from "./Card";
 
 function Main(props) {
@@ -75,7 +76,7 @@ function Main(props) {
       </section>
       <section className="places">
         {
-          cards.map(i =>  <Card key={i.id} {...i} onCardClick={props.onCardClick}/>)
+          cards.map(i => <Card key={i.id} {...i} onCardClick={props.onCardClick} card={i}/>)
         }
       </section>
     </main>

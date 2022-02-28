@@ -1,5 +1,6 @@
+import React from "react";
+
 function ImagePopup(props) {
-  console.log(props.card)
   return (
     <div className={props.card ?
       `popup popup_type_image popup_element_image popup_open`
@@ -18,11 +19,11 @@ function ImagePopup(props) {
         ></button>
         <figure className="figure">
           <img
-            src={props.card.link}
-            alt={props.card.title}
+            src={props.card?.link}
+            alt={props.card?.title}
             className="figure__image"
           />
-          <figcaption className="figure__title">{props.card.title}</figcaption>
+          <figcaption className="figure__title">{props.card?.title}</figcaption>
         </figure>
       </div>
     </div>
