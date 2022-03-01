@@ -44,6 +44,7 @@ function App() {
       <PopupWithForm
         name='profile'
         title='Редактировать профиль'
+        submit='Сохранить'
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
       >
@@ -69,14 +70,12 @@ function App() {
           required
         />
         <span className="error" id="user-job-error"></span>
-        <button type="submit" className="form__submit form__submit_btn_edit">
-          Сохранить
-        </button>
       </PopupWithForm>
 
       <PopupWithForm
         name='place'
         title='Новое место'
+        submit='Создать'
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
       >
@@ -100,18 +99,12 @@ function App() {
           required
         />
         <span className="error" id="place-image-error"></span>
-        <button
-          type="submit"
-          className="form__submit form__submit_btn_add form__submit_disabled"
-          disabled
-        >
-          Создать
-        </button>
       </PopupWithForm>
 
       <PopupWithForm
         name='avatar'
         title='Обновить аватар'
+        submit='Сохранить'
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
       >
@@ -124,25 +117,13 @@ function App() {
           required
         />
         <span className="error" id="avatar-image-error"></span>
-        <button
-          type="submit"
-          className="form__submit form__submit_btn_avatar form__submit_disabled"
-          disabled
-        >
-          Сохранить
-        </button>
       </PopupWithForm>
 
       <PopupWithForm
         name='delete-card'
-        title='Вы уверены?'>
-        <button
-          type="button"
-          className="popup__button  popup__delete-card"
-        >
-          Да
-        </button>
-      </PopupWithForm>
+        title='Вы уверены?'
+        submit='Да'
+      />
 
       <ImagePopup
         card={selectedCard}
