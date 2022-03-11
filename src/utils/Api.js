@@ -52,17 +52,17 @@ class Api {
       .then(this._handleResponse)
   }
   //
-  // editProfile({name, info}) {
-  //   return fetch(`${this._address}/users/me`, {
-  //     method: 'PATCH',
-  //     headers: this._headers,
-  //     body: JSON.stringify({
-  //       name,
-  //       about: info
-  //     })
-  //   })
-  //     .then(this._handleResponse)
-  // }
+  editProfile({name, info}) {
+    return fetch(`${this._address}/users/me`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        about: info
+      })
+    })
+      .then(this._handleResponse)
+  }
   //
   // addCard({name, link}) {
   //   return fetch(`${this._address}/cards`, {
