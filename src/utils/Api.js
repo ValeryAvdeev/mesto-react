@@ -33,21 +33,21 @@ class Api {
       .then(this._handleResponse)
   }
 
-  deleteCard(_id) {
-    return fetch(`${this._address}/cards/${_id}`, {
-      method: 'DELETE',
-      headers: {
-        authorization: this._token
-      }
-    })
-      .then(this._handleResponse)
-  }
-
   editAvatar(avatar) {
     return fetch(`${this._address}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify(avatar)
+    })
+      .then(this._handleResponse)
+  }
+
+  changeDeleteCard(_id) {
+    return fetch(`${this._address}/cards/${_id}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._token
+      }
     })
       .then(this._handleResponse)
   }
@@ -61,6 +61,8 @@ class Api {
     })
       .then(this._handleResponse)
   }
+
+
 
   //
   // editProfile({name, info}) {

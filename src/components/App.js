@@ -34,13 +34,13 @@ function App() {
         Api.getCards()
           .then(card => {
             setCurrentCard(
-              card.map(i => ({
-                title: i.name,
-                link: i.link,
-                likes: i.likes.length,
-                id: i._id,
-                owner: i.owner,
-              }))
+              card.map(i => ({...i}))
+                // title: i.name,
+                // link: i.link,
+                // likes: i.likes.length,
+                // id: i._id,
+                // owner: i.owner,
+
             )
           })
           .catch(err => console.log(`Ошибка в index.js при создании карточек ${err}`))
@@ -60,7 +60,6 @@ function App() {
       <div className="page">
         <Header />
         <CurrentUserContext.Provider value={currentUser}>
-          {/*<CurrentCardContext.Provider value={currentCard}>*/}
             <Main
               onEditProfile={handleEditProfile}
               onAddPlace={handleAddPlaceClick}
@@ -68,7 +67,6 @@ function App() {
               onCardClick={handleCardClick}
               cards={currentCard}
             />
-          {/*</CurrentCardContext.Provider>*/}
         </CurrentUserContext.Provider>
         <Footer />
       </div>

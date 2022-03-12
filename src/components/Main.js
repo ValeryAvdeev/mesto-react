@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import {useContext, useState} from "react";
 import editAvatar from '../images/avatar__edit.png'
 import Card from "./Card";
 import Api from '../utils/Api'
@@ -7,17 +7,27 @@ import {CurrentUserContext} from "../contexts/CurrentUserContext";
 function Main(props) {
 
   const currentUser = useContext(CurrentUserContext);
+  const [cards, setCards] = useState([]);
 
   const handleCardLike = (card) => {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i._id === currentUser._id);
-
     // Отправляем запрос в API и получаем обновлённые данные карточки
     Api.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
     })
-      .catch();
+      .catch(err => console.log(`Ошибка в index.js при лайку карточки ${err}`));
+  }
+
+  const handleCardDelete = (card) => {
+    // const isUserCard = card.likes.some(i => i._id === currentUser._id);
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    Api.changeDeleteCard(card._id)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      })
+      .catch(err => console.log(`Ошибка в index.js при лайку карточки ${err}`));
   }
 
   return (
@@ -61,10 +71,12 @@ function Main(props) {
       </section>
       <section className="places">
         {
-          props.cards.map((i) => <Card key={i.id}
+          props.cards.map((i) => <Card key={i._id}
                                        {...i}
                                        onCardClick={props.onCardClick}
                                        card={i}
+                                       onCardLike={handleCardLike}
+
           />)
         }
       </section>
