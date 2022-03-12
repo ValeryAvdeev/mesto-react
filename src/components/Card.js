@@ -3,9 +3,9 @@ import {CurrentCardContext} from "../contexts/CurrentCardContext";
 
 function Card(props){
   const currentCard = useContext(CurrentCardContext);
-  // const handleClick = () => props.onCardClick(props.card);
-  const handleClick = () => props.onCardClick(currentCard.card);
-  const isOwn = card.owner._id === currentUser._id;
+  const handleClick = () => props.onCardClick(props.card);
+  // const handleClick = () => props.onCardClick(currentCard.card);
+  const isOwn = props.card.owner._id === currentUser._id;
 
   const cardDeleteButtonClassName = (
     `button ${isOwn ? 'button_item_delete' : 'button_item_delete-none'}`

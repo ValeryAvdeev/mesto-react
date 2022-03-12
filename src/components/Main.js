@@ -1,49 +1,24 @@
-import {useEffect, useState, useContext} from "react";
+import { useContext } from "react";
 import editAvatar from '../images/avatar__edit.png'
-import Api from "../utils/Api";
 import Card from "./Card";
-import {CurrentUserContext} from "../contexts/CurrentUserContext";
-import {CurrentCardContext} from "../contexts/CurrentCardContext";
+import {CurrentUserContext, CurrentCardContext} from "../contexts/CurrentUserContext";
 
 function Main(props) {
-  // const [userName, setUserName] = useState('');
-  // const [userDescription, setUserDescription] = useState('');
-  // const [userAvatar, setUserAvatar] = useState('');
 
   const currentUser = useContext(CurrentUserContext);
 
-  const [cards, setCards] = useState([]);
+  const currentCard = useContext(CurrentCardContext);
 
-  useEffect(() => {
-    // Api.getUser()
-    //   .then((res) => {
-    //     setUserName(res.name);
-    //     setUserDescription(res.about);
-    //     setUserAvatar(res.avatar);
-    //   })
-    //   .then(() => {
-        Api.getCards()
-          .then(card => {
-            setCards(
-              card.map(i => ({
-                title: i.name,
-                link: i.link,
-                likes: i.likes.length,
-                id: i._id,
-              }))
-            )
-          })
-          .catch(err => console.log(`Ошибка в index.js при создании карточек ${err}`))
-      // })
-      // .catch(err => console.log(`Ошибка в index.js при запросе информации о пользователе ${err}`));
-  }, [])
+  console.log(currentUser)
+  console.log(currentCard)
 
   const handleCardLike = (card) => {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i._id === currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+    api.changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
     });
   }
@@ -88,11 +63,10 @@ function Main(props) {
         ></button>
       </section>
       <section className="places">
-        <CurrentCardContext.Provider value={cards}>
           {
-            cards.map(i => {
+            currentCard.card.map(i => {
               <Card
-                key={i.id}
+                key={currentCard._id}
                 {...i}
                 onCardClick={props.onCardClick}
                 card={i}
@@ -100,7 +74,6 @@ function Main(props) {
               />
             })
           }
-        </CurrentCardContext.Provider>
       </section>
     </main>
   )

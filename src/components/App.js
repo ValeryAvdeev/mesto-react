@@ -1,21 +1,21 @@
-import React, {useContext, useEffect} from "react";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from "./ImagePopup";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import Api from "../utils/Api";
-import { CurrentUserContext } from '../contexts/CurrentUserContext'
+import { CurrentUserContext, CurrentCardContext } from '../contexts/CurrentUserContext'
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =useState(false);
 
-  const [currentUser, setCurrentUser ] = useState()
+  const [currentUser, setCurrentUser ] = useState();
+  const [currentCard, setCurrentCard ] = useState([]);
 
-  const [selectedCard, setSelectedCard] = useState(null)
+  const [selectedCard, setSelectedCard] = useState(null);
 
   const handleCardClick = (card) => setSelectedCard(card);
 
@@ -29,6 +29,20 @@ function App() {
     Api.getUser()
       .then(res => {
         setCurrentUser({res})
+      })
+      .then(() => {
+        Api.getCards()
+          .then(card => {
+            setCurrentCard(
+              card.map(i => ({
+                title: i.name,
+                link: i.link,
+                likes: i.likes.length,
+                id: i._id,
+              }))
+            )
+          })
+          .catch(err => console.log(`Ошибка в index.js при создании карточек ${err}`))
       })
       .catch(err => console.log(`Ошибка в index.js при запросе информации о пользователе ${err}`))
   }, [])
@@ -45,12 +59,14 @@ function App() {
       <div className="page">
         <Header />
         <CurrentUserContext.Provider value={currentUser}>
-          <Main
-            onEditProfile={handleEditProfile}
-            onAddPlace={handleAddPlaceClick}
-            onEditAvatar={handleEditAvatarClick}
-            onCardClick={handleCardClick}
-          />
+          <CurrentCardContext.Provider value={currentCard}>
+            <Main
+              onEditProfile={handleEditProfile}
+              onAddPlace={handleAddPlaceClick}
+              onEditAvatar={handleEditAvatarClick}
+              onCardClick={handleCardClick}
+            />
+          </CurrentCardContext.Provider>
         </CurrentUserContext.Provider>
         <Footer />
       </div>
