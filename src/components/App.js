@@ -5,7 +5,7 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from "./ImagePopup";
 import {useState, useEffect} from "react";
 import Api from "../utils/Api";
-import { CurrentUserContext, CurrentCardContext } from '../contexts/CurrentUserContext'
+import { CurrentUserContext } from '../contexts/CurrentUserContext'
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -28,7 +28,7 @@ function App() {
   useEffect(() => {
     Api.getUser()
       .then(res => {
-        setCurrentUser({res})
+        setCurrentUser(res)
       })
       .then(() => {
         Api.getCards()
@@ -59,14 +59,15 @@ function App() {
       <div className="page">
         <Header />
         <CurrentUserContext.Provider value={currentUser}>
-          <CurrentCardContext.Provider value={currentCard}>
+          {/*<CurrentCardContext.Provider value={currentCard}>*/}
             <Main
               onEditProfile={handleEditProfile}
               onAddPlace={handleAddPlaceClick}
               onEditAvatar={handleEditAvatarClick}
               onCardClick={handleCardClick}
+              cards={currentCard}
             />
-          </CurrentCardContext.Provider>
+          {/*</CurrentCardContext.Provider>*/}
         </CurrentUserContext.Provider>
         <Footer />
       </div>

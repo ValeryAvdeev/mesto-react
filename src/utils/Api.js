@@ -3,9 +3,9 @@ class Api {
     this._address = address;
     this._token = token;
     this._headers = {
-                      authorization: this._token,
-                      'Content-Type': 'application/json'
-                    };
+      authorization: this._token,
+      'Content-Type': 'application/json'
+    };
   }
 
   _handleResponse = (response) => {
@@ -54,13 +54,14 @@ class Api {
 
   changeLikeCardStatus(id, isLiked) {
     return fetch(`${this._address}/cards/${id}/likes`, {
-      method: isLiked? 'PUT': 'DELETE',
+      method: isLiked ? 'PUT' : 'DELETE',
       headers: {
         authorization: this._token
       }
     })
       .then(this._handleResponse)
   }
+
   //
   // editProfile({name, info}) {
   //   return fetch(`${this._address}/users/me`, {
@@ -87,7 +88,7 @@ class Api {
   // }
   //
   // //нужно подставить свойство _id соответствующей карточки
-
+}
 
 const api = new Api(
   {
