@@ -39,6 +39,7 @@ function App() {
                 link: i.link,
                 likes: i.likes.length,
                 id: i._id,
+                owner: i.owner,
               }))
             )
           })
