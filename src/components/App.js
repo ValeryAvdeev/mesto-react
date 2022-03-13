@@ -15,6 +15,7 @@ function App() {
   const [currentUser, setCurrentUser ] = useState();
   const [currentCard, setCurrentCard ] = useState([]);
 
+
   const [selectedCard, setSelectedCard] = useState(null);
 
   const handleCardClick = (card) => setSelectedCard(card);
@@ -55,6 +56,32 @@ function App() {
     setSelectedCard(false);
   }
 
+  const handleCardLike = (card) => {
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    Api.changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCurrentCard((state) => state.map((c) => c._id === card._id ? newCard : c));
+      })
+      .catch(err => console.log(`Ошибка в index.js при лайку карточки ${err}`));
+  }
+
+  const handleCardDelete = (card) => {
+    // const isDelete = card.likes.some(i => i._id === currentUser._id);
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    console.log(card._id)
+    Api.changeDeleteCard(card._id)
+      .then(() => {
+        setCurrentCard((state) => state.filter(i => {
+          i._id === currentUser._id
+          console.log(i._id)
+          console.log(currentUser._id)
+        }));
+      })
+      .catch(err => console.log(`Ошибка в index.js при удалении карточки ${err}`));
+  }
+
   return (
     <>
       <div className="page">
@@ -66,6 +93,8 @@ function App() {
               onEditAvatar={handleEditAvatarClick}
               onCardClick={handleCardClick}
               cards={currentCard}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
             />
         </CurrentUserContext.Provider>
         <Footer />
