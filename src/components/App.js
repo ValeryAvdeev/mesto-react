@@ -36,9 +36,7 @@ function App() {
       .then(() => {
         Api.getCards()
           .then(card => {
-            setCurrentCard(
-              card.map(i => ({...i}))
-            )
+            setCurrentCard(card)
           })
           .catch(err => console.log(`Ошибка в index.js при создании карточек ${err}`))
       })
@@ -68,17 +66,15 @@ function App() {
     Api.changeDeleteCard(card._id)
       .then(() => {
         setCurrentCard((state) => {
-          state.filter((i) => i._id !== currentUser._id)
+          state.filter((i) => i._id != currentCard._id)
         })
       })
       .catch(err => console.log(`Ошибка в index.js при удалении карточки ${err}`));
   }
 
   const handleUpdateUser = (currentUser) => {
-    console.log(currentUser)
     Api.editProfile({name: currentUser.name, info: currentUser.about})
       .then(user => {
-        console.log(user)
         setCurrentUser(user)
       })
       .catch(err => console.log(`Ошибка в index.js при редактировании информации о user ${err}`))

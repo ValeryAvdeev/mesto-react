@@ -35,7 +35,7 @@ function Main(props) {
             className="button button_item_edit"
             onClick={props.onEditProfile}
           ></button>
-          <p className="profile__subtitle profile__subtitle_popup_job">\
+          <p className="profile__subtitle profile__subtitle_popup_job">
             {currentUser?.about}
           </p>
         </div>
