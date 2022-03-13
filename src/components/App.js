@@ -6,6 +6,8 @@ import ImagePopup from "./ImagePopup";
 import {useState, useEffect} from "react";
 import Api from "../utils/Api";
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
+import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -36,12 +38,6 @@ function App() {
           .then(card => {
             setCurrentCard(
               card.map(i => ({...i}))
-                // title: i.name,
-                // link: i.link,
-                // likes: i.likes.length,
-                // id: i._id,
-                // owner: i.owner,
-
             )
           })
           .catch(err => console.log(`Ошибка в index.js при создании карточек ${err}`))
@@ -68,18 +64,24 @@ function App() {
   }
 
   const handleCardDelete = (card) => {
-    // const isDelete = card.likes.some(i => i._id === currentUser._id);
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    console.log(card._id)
     Api.changeDeleteCard(card._id)
       .then(() => {
-        setCurrentCard((state) => state.filter(i => {
-          i._id === currentUser._id
-          console.log(i._id)
-          console.log(currentUser._id)
-        }));
+        setCurrentCard((state) => {
+          state.filter((i) => i._id !== currentUser._id)
+        })
       })
       .catch(err => console.log(`Ошибка в index.js при удалении карточки ${err}`));
+  }
+
+  const handleUpdateUser = (currentUser) => {
+    console.log(currentUser)
+    Api.editProfile({name: currentUser.name, info: currentUser.about})
+      .then(user => {
+        console.log(user)
+        setCurrentUser(user)
+      })
+      .catch(err => console.log(`Ошибка в index.js при редактировании информации о user ${err}`))
   }
 
   return (
@@ -100,36 +102,11 @@ function App() {
         <Footer />
       </div>
 
-      <PopupWithForm
-        name='profile'
-        title='Редактировать профиль'
-        submit='Сохранить'
+      <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}
-      >
-        <input
-          type="text"
-          name="name"
-          minLength="2"
-          maxLength="40"
-          placeholder="Имя"
-          className="form__input form__input_popup_name"
-          id="user-name"
-          required
-        />
-        <span className="error" id="user-name-error"></span>
-        <input
-          type="text"
-          name="info"
-          minLength="2"
-          maxLength="200"
-          placeholder="Род деятельности"
-          className="form__input form__input_popup_job"
-          id="user-job"
-          required
-        />
-        <span className="error" id="user-job-error"></span>
-      </PopupWithForm>
+        isClose={closeAllPopups}
+        onUpdateUser={handleUpdateUser}
+      />
 
       <PopupWithForm
         name='place'
@@ -160,23 +137,10 @@ function App() {
         <span className="error" id="place-image-error"></span>
       </PopupWithForm>
 
-      <PopupWithForm
-        name='avatar'
-        title='Обновить аватар'
-        submit='Сохранить'
+      <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
-        onClose={closeAllPopups}
-      >
-        <input
-          type="url"
-          name="avatar"
-          placeholder="Ссылка на фотографию профеля"
-          className="form__input form__input_popup_image"
-          id="avatar-image"
-          required
-        />
-        <span className="error" id="avatar-image-error"></span>
-      </PopupWithForm>
+        isClose={closeAllPopups}
+      />
 
       <PopupWithForm
         name='delete-card'

@@ -42,9 +42,10 @@ class Api {
       .then(this._handleResponse)
   }
 
-  changeDeleteCard(_id) {
+  changeDeleteCard(_id, isDelete) {
     return fetch(`${this._address}/cards/${_id}`, {
       method: 'DELETE',
+      // method: isDelete ? 'DELETE': 'POST',
       headers: {
         authorization: this._token
       }
@@ -62,20 +63,17 @@ class Api {
       .then(this._handleResponse)
   }
 
-
-
-  //
-  // editProfile({name, info}) {
-  //   return fetch(`${this._address}/users/me`, {
-  //     method: 'PATCH',
-  //     headers: this._headers,
-  //     body: JSON.stringify({
-  //       name: name,
-  //       about: info
-  //     })
-  //   })
-  //     .then(this._handleResponse)
-  // }
+  editProfile({name, info}) {
+    return fetch(`${this._address}/users/me`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        about: info
+      })
+    })
+      .then(this._handleResponse)
+  }
   //
   // addCard({name, link}) {
   //   return fetch(`${this._address}/cards`, {

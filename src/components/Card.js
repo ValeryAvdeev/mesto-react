@@ -31,7 +31,6 @@ function Card(props){
         type="button"
         onClick={handleCardDelete}
       ></button>
-      {/*<button className="button button_item_delete button_delete" type="button"></button>*/}
       <img
         src={props.card.link}
         alt={props.card.name}
