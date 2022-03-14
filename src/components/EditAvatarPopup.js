@@ -2,6 +2,14 @@ import PopupWithForm from "./PopupWithForm";
 
 function EditAvatarPopup(props) {
 
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    props.onUpdateAvatar({
+      avatar: props.onUpdateAvatar
+    });
+  }
+
   return(
     <PopupWithForm
       name='avatar'
@@ -9,6 +17,7 @@ function EditAvatarPopup(props) {
       submit='Сохранить'
       isOpen={props.isOpen}
       onClose={props.isClose}
+      onSubmit={handleSubmit}
     >
       <input
         type="url"

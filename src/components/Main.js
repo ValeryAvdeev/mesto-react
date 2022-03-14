@@ -16,12 +16,14 @@ function Main(props) {
             alt="фотография профиля."
             className="avatar__image"
           />
-          <div className="avatar__over">
+          <div
+            className="avatar__over"
+            onClick={props.onEditAvatar}
+          >
             <img
               src={editAvatar}
               alt="редактирование аватар"
               className="avatar__edit"
-              onClick={props.onEditAvatar}
             />
           </div>
         </div>

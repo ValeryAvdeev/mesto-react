@@ -1,35 +1,35 @@
 import PopupWithForm from "./PopupWithForm";
 import {useContext, useEffect, useState} from "react";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
+import {logDOM} from "@testing-library/react";
+
 
 function EditProfilePopup(props) {
+  const currentUser = useContext(CurrentUserContext);
 
-  const currentUser = useContext(CurrentUserContext)
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
 
-  const [name, setName] = useState(currentUser?.name);
-  const [description, setDescription] = useState(currentUser?.about);
+  const handleName = (e) => setName(e.target.value);
+  const handleDescription = (e) => setDescription(e.target.value);
 
-  const handleName = (e) => {
-    setName(e.target.value)
-  }
-
-  const handleDescription = (e) => {
-    setDescription(e.target.value)
-  }
-
-  useEffect(() => {
-    setName(currentUser?.name);
-    setDescription(currentUser?.about);
-  }, [currentUser]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
     props.onUpdateUser({
-      name,
+      name: name,
       about: description,
     })
   }
+
+
+  useEffect(() => {
+    if(currentUser){
+      setName(currentUser.name);
+      setDescription(currentUser.about);
+    }
+  }, [currentUser]);
 
     return (
       <PopupWithForm

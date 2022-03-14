@@ -42,7 +42,7 @@ class Api {
       .then(this._handleResponse)
   }
 
-  changeDeleteCard(_id) {
+  deleteCard(_id) {
     return fetch(`${this._address}/cards/${_id}`, {
       method: 'DELETE',
       // method: isDelete ? 'DELETE': 'POST',
@@ -74,20 +74,18 @@ class Api {
     })
       .then(this._handleResponse)
   }
-  //
-  // addCard({name, link}) {
-  //   return fetch(`${this._address}/cards`, {
-  //     method: 'POST',
-  //     headers: this._headers,
-  //     body: JSON.stringify({
-  //       name,
-  //       link
-  //     })
-  //   })
-  //     .then(this._handleResponse)
-  // }
-  //
-  // //нужно подставить свойство _id соответствующей карточки
+
+  addCard({name, link}) {
+    return fetch(`${this._address}/cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        link: link,
+      })
+    })
+      .then(this._handleResponse)
+  }
 }
 
 const api = new Api(
