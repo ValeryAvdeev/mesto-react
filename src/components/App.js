@@ -58,7 +58,7 @@ function App() {
       .then((newCard) => {
         setCurrentCard((state) => state.map((c) => c._id === card._id ? newCard : c));
       })
-      .catch(err => console.log(`Ошибка в index.js при лайку карточки ${err}`));
+      .catch(err => console.log(`Ошибка в index.js при лайку карточки ${err}`))
   }
 
   const handleCardDelete = (card) => {
@@ -66,10 +66,10 @@ function App() {
     Api.changeDeleteCard(card._id)
       .then(() => {
         setCurrentCard((state) => {
-          state.filter((i) => i._id != currentCard._id)
+          return state.filter((i) => i._id != card._id)
         })
       })
-      .catch(err => console.log(`Ошибка в index.js при удалении карточки ${err}`));
+      .catch(err => console.log(`Ошибка в index.js при удалении карточки ${err}`))
   }
 
   const handleUpdateUser = (currentUser) => {

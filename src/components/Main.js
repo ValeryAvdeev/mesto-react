@@ -48,13 +48,14 @@ function Main(props) {
       </section>
       <section className="places">
         {
-          props.cards.map((i) => <Card key={i._id}
-                                       {...i}
-                                       onCardClick={props.onCardClick}
-                                       card={i}
-                                       onCardLike={props.onCardLike}
-                                       onCardDelete={props.onCardDelete}
-          />)
+          props.cards.map((i) => {
+            return (<Card key={i._id}
+                  onCardClick={props.onCardClick}
+                  card={i}
+                  onCardLike={props.onCardLike}
+                  onCardDelete={props.onCardDelete}
+            />)
+          })
         }
       </section>
     </main>

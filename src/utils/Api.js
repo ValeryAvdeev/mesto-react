@@ -42,7 +42,7 @@ class Api {
       .then(this._handleResponse)
   }
 
-  changeDeleteCard(_id, isDelete) {
+  changeDeleteCard(_id) {
     return fetch(`${this._address}/cards/${_id}`, {
       method: 'DELETE',
       // method: isDelete ? 'DELETE': 'POST',
