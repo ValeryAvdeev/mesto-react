@@ -1,7 +1,6 @@
 import PopupWithForm from "./PopupWithForm";
 import {useContext, useEffect, useState} from "react";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
-import {logDOM} from "@testing-library/react";
 
 
 function EditProfilePopup(props) {
@@ -13,14 +12,14 @@ function EditProfilePopup(props) {
   const handleName = (e) => setName(e.target.value);
   const handleDescription = (e) => setDescription(e.target.value);
 
-
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
     props.onUpdateUser({
-      name: name,
+      name,
       about: description,
     })
+
   }
 
 
@@ -29,7 +28,7 @@ function EditProfilePopup(props) {
       setName(currentUser.name);
       setDescription(currentUser.about);
     }
-  }, [currentUser]);
+  }, [currentUser, props.isOpen]);
 
     return (
       <PopupWithForm

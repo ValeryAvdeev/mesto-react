@@ -1,13 +1,16 @@
 import PopupWithForm from "./PopupWithForm";
+import {useRef} from "react";
 
 function EditAvatarPopup(props) {
+  const avatarRef = useRef('')
 
   function handleSubmit(e) {
     e.preventDefault();
 
     props.onUpdateAvatar({
-      avatar: props.onUpdateAvatar
+      avatar: avatarRef.current.value
     });
+    e.target.reset();
   }
 
   return(
@@ -26,6 +29,8 @@ function EditAvatarPopup(props) {
         className="form__input form__input_popup_image"
         id="avatar-image"
         required
+        ref={avatarRef}
+        defaultValue=''
       />
       <span className="error" id="avatar-image-error"></span>
     </PopupWithForm>
