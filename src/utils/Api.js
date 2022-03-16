@@ -45,7 +45,6 @@ class Api {
   deleteCard(_id) {
     return fetch(`${this._address}/cards/${_id}`, {
       method: 'DELETE',
-      // method: isDelete ? 'DELETE': 'POST',
       headers: {
         authorization: this._token
       }

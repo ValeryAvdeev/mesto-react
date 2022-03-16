@@ -15,7 +15,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =useState(false);
 
-  const [ currentUser, setCurrentUser ] = useState();
+  const [ currentUser, setCurrentUser ] = useState(null);
   const [ cards, setCards ] = useState([]);
 
   const [selectedCard, setSelectedCard] = useState(null);
@@ -35,9 +35,7 @@ function App() {
       })
       .then(() => {
         Api.getCards()
-          .then(card => {
-            setCards(card)
-          })
+          .then(card => setCards(card))
           .catch(err => console.log(`Ошибка в App.js при создании карточек ${err}`))
       })
       .catch(err => console.log(`Ошибка в App.js при запросе информации о пользователе ${err}`))
@@ -75,9 +73,7 @@ function App() {
   const handleUpdateUser = (currentUser) => {
 
     Api.editProfile({name: currentUser.name, info: currentUser.about})
-      .then(user => {
-        setCurrentUser(user)
-      })
+      .then(user => setCurrentUser(user))
       .catch(err => console.log(`Ошибка в App.js при редактировании информации о user ${err}`))
 
     setIsEditProfilePopupOpen(false);
@@ -86,9 +82,7 @@ function App() {
   const handleUpdateAvatar = (newAvatar) => {
 
     Api.editAvatar(newAvatar)
-      .then((avatar) =>{
-        setCurrentUser(avatar)
-      })
+      .then((avatar) => setCurrentUser(avatar))
       .catch(err => console.log(`Ошибка в App.js при редактировании информации о user ${err}`));
 
     setIsEditAvatarPopupOpen(false);
@@ -96,9 +90,7 @@ function App() {
 
   const handleAddPlaceSubmit = (obj) => {
     Api.addCard({name: obj.name, link: obj.link})
-      .then((newCard) => {
-        setCards([newCard, ...cards])
-      })
+      .then((newCard) => setCards([newCard, ...cards]))
       .catch(err => console.log(`Ошибка в App.js при добавлении карточки ${err}`))
 
     setIsAddPlacePopupOpen(false);
